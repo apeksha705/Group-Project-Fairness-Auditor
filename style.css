@@ -1,0 +1,161 @@
+  /* ===================== DESIGN TOKENS (unchanged from original design system) ===================== */
+  :root{
+    --ink:        #0B0F14;   /* base background — near-black ink navy */
+    --surface:    #121821;   /* card / panel surface */
+    --surface-2:  #171F2B;   /* slightly raised surface */
+    --line:       #232C3A;   /* hairline borders */
+    --text:       #E7ECF2;   /* primary text */
+    --muted:      #8A96A6;   /* secondary text */
+    --teal:       #2DD4BF;   /* primary accent — trust / signal */
+    --amber:      #F5A524;   /* secondary accent — attention */
+    --red:        #F0576B;   /* fail / flagged state */
+    --teal-dim:   rgba(45,212,191,0.12);
+    --amber-dim:  rgba(245,165,36,0.12);
+    --red-dim:    rgba(240,87,107,0.12);
+  }
+
+  *{ scroll-behavior: smooth; }
+
+  body{
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(45,212,191,0.07), transparent 60%),
+      radial-gradient(1000px 500px at 100% 0%, rgba(245,165,36,0.05), transparent 55%),
+      var(--ink);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+  }
+
+  .font-display{ font-family: 'Space Grotesk', sans-serif; }
+  .font-mono{ font-family: 'JetBrains Mono', monospace; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
+  }
+
+  /* ===================== PANELS / DIVIDERS ===================== */
+  .panel{ background: var(--surface); border: 1px solid var(--line); }
+  .panel-2{ background: var(--surface-2); border: 1px solid var(--line); }
+  .divider{ border-color: var(--line); }
+
+  .eyebrow{
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: var(--teal);
+  }
+
+  /* ===================== NAV ===================== */
+  #navbar{
+    backdrop-filter: blur(12px);
+    background: rgba(11,15,20,0.75);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow .3s ease;
+  }
+  .nav-link{ position: relative; color: var(--muted); transition: color .2s ease; }
+  .nav-link::after{
+    content:''; position:absolute; left:0; bottom:-4px; width:0%; height:1px;
+    background: var(--teal); transition: width .25s ease;
+  }
+  .nav-link:hover{ color: var(--text); }
+  .nav-link:hover::after{ width:100%; }
+
+  /* ===================== BUTTONS ===================== */
+  .btn-primary{
+    background: var(--teal); color: #05221E; font-weight: 600;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow: 0 0 0 rgba(45,212,191,0);
+  }
+  .btn-primary:hover{ transform: translateY(-2px); box-shadow: 0 10px 30px -8px rgba(45,212,191,0.45); }
+  .btn-primary:active{ transform: translateY(0px) scale(0.98); }
+
+  .btn-ghost{ border: 1px solid var(--line); color: var(--text); transition: border-color .2s ease, transform .18s ease, background .2s ease; }
+  .btn-ghost:hover{ border-color: var(--teal); background: var(--teal-dim); transform: translateY(-2px); }
+
+  /* ===================== CARDS ===================== */
+  .metric-card{ background: var(--surface); border: 1px solid var(--line); transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease; }
+  .metric-card:hover{ transform: translateY(-4px); border-color: rgba(45,212,191,0.35); box-shadow: 0 20px 40px -20px rgba(0,0,0,0.6); }
+
+  .rec-card{ background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--teal); transition: transform .2s ease, background .2s ease; }
+  .rec-card:hover{ transform: translateX(4px); background: var(--surface-2); }
+  .rec-card.priority-high{ border-left-color: var(--red); }
+  .rec-card.priority-med{ border-left-color: var(--amber); }
+
+  /* ===================== BADGES ===================== */
+  .badge{
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem; letter-spacing: 0.06em;
+    padding: 0.2rem 0.55rem; border-radius: 999px; display: inline-flex; align-items:center; gap: 0.35rem;
+  }
+  .badge-pass{ background: var(--teal-dim); color: var(--teal); }
+  .badge-warn{ background: var(--amber-dim); color: var(--amber); }
+  .badge-fail{ background: var(--red-dim); color: var(--red); }
+  .badge-dot{ width:6px; height:6px; border-radius:50%; background:currentColor; }
+
+  /* small stat pill used inside recommendation cards */
+  .stat-pill{
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    background: var(--surface-2); border: 1px solid var(--line);
+    padding: 0.2rem 0.55rem; border-radius: 6px; color: var(--muted);
+  }
+  .stat-pill b{ color: var(--text); font-weight: 600; }
+
+  /* ===================== UPLOAD ZONE ===================== */
+  .dropzone{ border: 1.5px dashed var(--line); transition: border-color .2s ease, background .2s ease; }
+  .dropzone.drag-active, .dropzone:hover{ border-color: var(--teal); background: var(--teal-dim); }
+  .dropzone.file-loaded{ border-color: var(--teal); border-style: solid; }
+
+  /* ===================== SIGNATURE ELEMENT: LIVE CONTRIBUTION REPORT PREVIEW ===================== */
+  /* A miniature "product screenshot" — a report card with animated per-member
+     contribution bars and a commit-activity heatmap, mirroring what the tool
+     actually outputs rather than a decorative illustration. */
+  .winbar-dot{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .contrib-bar{
+    height: 6px; border-radius: 999px; background: var(--line); overflow:hidden; flex:1;
+  }
+  .contrib-bar-fill{
+    height:100%; border-radius:999px; width:0%;
+    transition: width 1.1s cubic-bezier(.22,1,.36,1);
+  }
+  .heat-cell{
+    width: 100%; aspect-ratio: 1; border-radius: 3px; background: var(--line);
+    transition: background .3s ease;
+  }
+  .pulse-dot{ animation: pulse-op 2s ease-in-out infinite; }
+  @keyframes pulse-op{ 0%, 100% { opacity: 1; } 50% { opacity: 0.35; } }
+
+  .counter{ font-variant-numeric: tabular-nums; }
+
+  /* ===================== LOADING OVERLAY ===================== */
+  #loadingOverlay{ backdrop-filter: blur(6px); background: rgba(11,15,20,0.88); transition: opacity .35s ease, visibility .35s ease; }
+  .scan-line{
+    position: absolute; left:0; right:0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--teal), transparent);
+    animation: scan 1.6s linear infinite;
+  }
+  @keyframes scan{ 0%{ top: 0%; opacity: 0; } 10%{ opacity: 1; } 90%{ opacity: 1; } 100%{ top: 100%; opacity: 0; } }
+  .spinner-ring{ border: 2px solid var(--line); border-top-color: var(--teal); animation: spin 0.9s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+
+  /* ===================== SCROLL REVEAL =====================
+     Content is visible by default (no JS dependency). Only once
+     the page confirms JS ran do we opt sections into the
+     animated hidden→revealed state — so a blocked/slow script
+     never leaves the page blank. */
+  .reveal{ opacity: 1; transform: none; }
+  html.js-ready .reveal{ opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+  html.js-ready .reveal.in-view{ opacity: 1; transform: translateY(0); }
+
+  /* ===================== MISC ===================== */
+  .grain-overlay{
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+  ::-webkit-scrollbar{ width: 10px; }
+  ::-webkit-scrollbar-track{ background: var(--ink); }
+  ::-webkit-scrollbar-thumb{ background: var(--line); border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover{ background: #33404f; }
+
+  input:focus-visible, button:focus-visible, a:focus-visible{ outline: 2px solid var(--teal); outline-offset: 2px; }
+
+  /* Custom Chart.js tooltip container (styled via options, class hook kept for reference) */
+  .chartjs-tooltip{ font-family: 'JetBrains Mono', monospace; }

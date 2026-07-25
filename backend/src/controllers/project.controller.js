@@ -1,22 +1,15 @@
 const { successResponse, errorResponse } = require('../utils/response');
-const {
-  createProject,
-  getAllProjects,
-  getProjectById,
-} = require('../services/project.service');
+const { isValidUUID } = require('../utils/validate');
+const { createProject, getAllProjects, getProjectById } = require('../services/project.service');
 
-// Required fields and a human-readable label for each
+// Fields that must be present and non-empty on POST
 const REQUIRED_FIELDS = [
-  { key: 'name',           label: 'Project name' },
-  { key: 'subject',        label: 'Subject'       },
+  { key: 'name',           label: 'Project name'  },
+  { key: 'subject',        label: 'Subject'        },
   { key: 'professor_name', label: 'Professor name' },
   { key: 'deadline',       label: 'Deadline'       },
 ];
 
-/**
- * Validate that all required fields are present and non-empty.
- * Returns an array of missing field labels (empty = valid).
- */
 const getMissingFields = (body) =>
   REQUIRED_FIELDS
     .filter(({ key }) => !body[key] || String(body[key]).trim() === '')
@@ -25,25 +18,19 @@ const getMissingFields = (body) =>
 // ---------------------------------------------------------------------------
 
 /**
- * @desc    Create a new project
- * @route   POST /api/projects
- * @access  Public
+ * @desc   Create a new project
+ * @route  POST /api/projects
  */
 const createProjectHandler = async (req, res) => {
   const missing = getMissingFields(req.body);
   if (missing.length > 0) {
-    return errorResponse(
-      res,
-      `Missing required fields: ${missing.join(', ')}`,
-      400
-    );
+    return errorResponse(res, `Missing required fields: ${missing.join(', ')}`, 400);
   }
 
   const { name, subject, professor_name, deadline } = req.body;
 
-  // Basic date format guard (YYYY-MM-DD)
   if (!/^\d{4}-\d{2}-\d{2}$/.test(deadline)) {
-    return errorResponse(res, 'deadline must be a valid date in YYYY-MM-DD format', 400);
+    return errorResponse(res, 'deadline must be in YYYY-MM-DD format', 400);
   }
 
   const { data, error } = await createProject({ name, subject, professor_name, deadline });
@@ -57,9 +44,8 @@ const createProjectHandler = async (req, res) => {
 };
 
 /**
- * @desc    Get all projects
- * @route   GET /api/projects
- * @access  Public
+ * @desc   Get all projects
+ * @route  GET /api/projects
  */
 const getAllProjectsHandler = async (req, res) => {
   const { data, error } = await getAllProjects();
@@ -73,23 +59,18 @@ const getAllProjectsHandler = async (req, res) => {
 };
 
 /**
- * @desc    Get a single project by ID
- * @route   GET /api/projects/:id
- * @access  Public
+ * @desc   Get a single project by ID
+ * @route  GET /api/projects/:id
  */
 const getProjectByIdHandler = async (req, res) => {
   const { id } = req.params;
 
-  // Basic UUID format guard
-  const UUID_REGEX =
-    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-  if (!UUID_REGEX.test(id)) {
+  if (!isValidUUID(id)) {
     return errorResponse(res, 'Invalid project ID format', 400);
   }
 
   const { data, error } = await getProjectById(id);
 
-  // Supabase returns PGRST116 when .single() finds no row
   if (error) {
     if (error.code === 'PGRST116') {
       return errorResponse(res, 'Project not found', 404);
@@ -101,8 +82,4 @@ const getProjectByIdHandler = async (req, res) => {
   return successResponse(res, { data });
 };
 
-module.exports = {
-  createProjectHandler,
-  getAllProjectsHandler,
-  getProjectByIdHandler,
-};
+module.exports = { createProjectHandler, getAllProjectsHandler, getProjectByIdHandler };

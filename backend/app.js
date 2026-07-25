@@ -1,41 +1,40 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
+const express    = require('express');
+const cors       = require('cors');
+const dotenv     = require('dotenv');
+const errorHandler = require('./src/middleware/errorHandler');
 
-// Load environment variables
 dotenv.config();
 
 const app = express();
 
-// --- Middleware ---
+// ---------------------------------------------------------------------------
+// Middleware
+// ---------------------------------------------------------------------------
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  origin:         process.env.CORS_ORIGIN || '*',
+  methods:        ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
 }));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// --- Routes ---
-const healthRouter  = require('./src/routes/health.routes');
-const projectRouter = require('./src/routes/project.routes');
+// ---------------------------------------------------------------------------
+// Routes
+// ---------------------------------------------------------------------------
+app.use('/api/health',   require('./src/routes/health.routes'));
+app.use('/api/projects', require('./src/routes/project.routes'));
 
-app.use('/api/health',   healthRouter);
-app.use('/api/projects', projectRouter);
-
-// --- 404 Handler ---
+// ---------------------------------------------------------------------------
+// 404 — no route matched
+// ---------------------------------------------------------------------------
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found' });
 });
 
-// --- Global Error Handler ---
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({
-    success: false,
-    message: err.message || 'Internal Server Error',
-  });
-});
+// ---------------------------------------------------------------------------
+// Global error handler (must be last, needs all 4 args)
+// ---------------------------------------------------------------------------
+app.use(errorHandler);
 
 module.exports = app;

@@ -32,4 +32,19 @@ const getMembersByProjectId = async (project_id) => {
   return { data, error };
 };
 
-module.exports = { createMember, getMembersByProjectId };
+/**
+ * Fetch a single member by its UUID.
+ * @param {string} id
+ * @returns {{ data: object|null, error: object|null }}
+ */
+const getMemberById = async (id) => {
+  const { data, error } = await supabase
+    .from(TABLE)
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  return { data, error };
+};
+
+module.exports = { createMember, getMembersByProjectId, getMemberById };

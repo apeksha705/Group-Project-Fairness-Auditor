@@ -1,53 +1,17 @@
 const { successResponse, errorResponse } = require('../utils/response');
-const { getProjectById } = require('../services/project.service');
+const { assertProjectExists } = require('../utils/validate');
 const { createMember, getMembersByProjectId } = require('../services/member.service');
-
-// Reusable UUID regex
-const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
-/**
- * Validate :projectId param and confirm the project exists in the DB.
- * Returns an early error response if invalid; returns null if all good.
- */
-const validateProject = async (projectId, res) => {
-  if (!UUID_REGEX.test(projectId)) {
-    errorResponse(res, 'Invalid project ID format', 400);
-    return false;
-  }
-
-  const { data, error } = await getProjectById(projectId);
-
-  if (error) {
-    if (error.code === 'PGRST116') {
-      errorResponse(res, 'Project not found', 404);
-      return false;
-    }
-    console.error('[validateProject]', error);
-    errorResponse(res, 'Failed to verify project', 500);
-    return false;
-  }
-
-  if (!data) {
-    errorResponse(res, 'Project not found', 404);
-    return false;
-  }
-
-  return true;
-};
 
 // ---------------------------------------------------------------------------
 
 /**
- * @desc    Add a member to a project
- * @route   POST /api/projects/:projectId/members
- * @access  Public
+ * @desc   Add a member to a project
+ * @route  POST /api/projects/:projectId/members
  */
 const createMemberHandler = async (req, res) => {
   const { projectId } = req.params;
 
-  // Confirm project exists before writing
-  const valid = await validateProject(projectId, res);
-  if (!valid) return;
+  if (!(await assertProjectExists(projectId, res))) return;
 
   const name = req.body.name ? String(req.body.name).trim() : '';
   if (!name) {
@@ -65,16 +29,13 @@ const createMemberHandler = async (req, res) => {
 };
 
 /**
- * @desc    Get all members for a project
- * @route   GET /api/projects/:projectId/members
- * @access  Public
+ * @desc   Get all members for a project
+ * @route  GET /api/projects/:projectId/members
  */
 const getMembersHandler = async (req, res) => {
   const { projectId } = req.params;
 
-  // Confirm project exists before querying members
-  const valid = await validateProject(projectId, res);
-  if (!valid) return;
+  if (!(await assertProjectExists(projectId, res))) return;
 
   const { data, error } = await getMembersByProjectId(projectId);
 

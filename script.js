@@ -353,3 +353,11 @@
   });
 
 })();
+document.addEventListener("DOMContentLoaded", async () => {
+    const projects = await getProjects();
+
+    if (projects.length > 0) {
+        document.getElementById("lastRun").textContent =
+            `Showing live project · ${projects[0].name}`;
+    }
+});

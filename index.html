@@ -202,13 +202,18 @@
 <!-- =========================================================
      ANALYZE PROJECT (upload section)
 ========================================================= -->
+<<<<<<< HEAD
 <section id="audit" class="relative z-10 py-20 px-6 border-t divider">
+=======
+F class="relative z-10 py-20 px-6 border-t divider">
+>>>>>>> 8df99ea6daf1da8ca4d664d71e211b32fafdc422
   <div class="max-w-5xl mx-auto">
     <div class="text-center mb-12 reveal">
       <span class="eyebrow">Step 01 → 03</span>
       <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3">Analyze a project</h2>
       <p class="text-[var(--muted)] mt-3 max-w-xl mx-auto">Connect a repository and your team's docs, choose how to weigh each signal, and WorkLens builds the report.</p>
     </div>
+<<<<<<< HEAD
 
     <div class="panel rounded-2xl p-6 sm:p-10 reveal">
       <div class="grid md:grid-cols-2 gap-6 mb-8">
@@ -278,6 +283,292 @@
   </div>
 </section>
 
+=======
+
+    <div class="panel rounded-2xl p-6 sm:p-10 reveal">
+      <div class="grid md:grid-cols-2 gap-6 mb-8">
+
+        <!-- Repository / commit history upload -->
+        <div>
+          <label class="text-sm font-medium mb-3 flex items-center gap-2">
+            <span class="font-mono text-[var(--teal)] text-xs">01</span> Repository history (CSV / JSON)
+          </label>
+          <div id="dropzoneDataset" class="dropzone rounded-xl p-8 text-center cursor-pointer">
+            <svg id="datasetIcon" class="w-6 h-6 text-[var(--muted)] mb-3 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 18A4.5 4.5 0 0 1 7.2 9.03A6 6 0 0 1 18.5 10.5A4 4 0 0 1 18 18H7Z"/><path d="M12 17V10"/><path d="M9 13L12 10L15 13"/></svg>
+            <p id="datasetLabel" class="text-sm text-[var(--muted)]">Drag & drop, or click to browse</p>
+            <input id="datasetInput" type="file" accept=".csv,.json" class="hidden" />
+          </div>
+        </div>
+
+        <!-- Docs & task activity upload -->
+        <div>
+          <label class="text-sm font-medium mb-3 flex items-center gap-2">
+            <span class="font-mono text-[var(--teal)] text-xs">02</span> Docs & task activity (optional)
+          </label>
+          <div id="dropzoneModel" class="dropzone rounded-xl p-8 text-center cursor-pointer">
+            <svg id="modelIcon" class="w-6 h-6 text-[var(--muted)] mb-3 shrink-0 inline-block" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2.5H13L18 7.5V21.5H6V2.5Z"/><path d="M13 2.5V7.5H18"/><path d="M9 12.5H15"/><path d="M9 16.5H15"/></svg>
+            <p id="modelLabel" class="text-sm text-[var(--muted)]">Drag & drop, or click to browse</p>
+            <input id="modelInput" type="file" accept=".csv,.json" class="hidden" />
+          </div>
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-4 mb-8">
+        <div>
+          <label class="text-xs eyebrow block mb-2">Primary signal</label>
+          <select class="w-full panel-2 rounded-lg px-3 py-2.5 text-sm border divider focus:border-[var(--teal)] outline-none">
+            <option>Commits</option>
+            <option>Document edits</option>
+            <option>Task completions</option>
+            <option>Meeting participation</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs eyebrow block mb-2">Report format</label>
+          <select class="w-full panel-2 rounded-lg px-3 py-2.5 text-sm border divider focus:border-[var(--teal)] outline-none">
+            <option>Instructor summary</option>
+            <option>Peer review</option>
+            <option>Full evidence log</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs eyebrow block mb-2">Confidence threshold</label>
+          <select class="w-full panel-2 rounded-lg px-3 py-2.5 text-sm border divider focus:border-[var(--teal)] outline-none">
+            <option>Standard</option>
+            <option>Strict</option>
+            <option>Custom</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="flex flex-col sm:flex-row items-center gap-4 justify-between">
+        <p class="text-xs text-[var(--muted)] font-mono">
+          <svg class="w-4 h-4 mr-1 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11V16.5"/><circle cx="12" cy="7.7" r="0.9" fill="currentColor" stroke="none"/></svg> No files? Demo runs on a built-in sample capstone project.
+        </p>
+        <button id="runAuditBtn" class="btn-primary px-7 py-3.5 rounded-lg inline-flex items-center gap-2 whitespace-nowrap">
+          <svg class="w-3 h-3 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4L19 12L6 20V4Z" stroke-linejoin="round"/></svg> Generate Report
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================================
+     REPORTS (results dashboard)
+========================================================= -->
+<section id="dashboard" class="relative z-10 py-20 px-6 border-t divider">
+  <div class="max-w-7xl mx-auto">
+
+    <div class="flex flex-wrap items-end justify-between gap-4 mb-4 reveal">
+      <div>
+        <span class="eyebrow">Step 03 → Report</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3">Contribution report</h2>
+      </div>
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>WorkLens — Contribution Analytics Platform</title>
+
+<!-- ============ CDN DEPENDENCIES ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="antialiased">
+
+<div class="fixed inset-0 grain-overlay z-0"></div>
+
+<!-- =========================================================
+     LOADING OVERLAY
+========================================================= -->
+<div id="loadingOverlay" class="fixed inset-0 z-[100] hidden flex items-center justify-center opacity-0 invisible">
+  <div class="relative w-full max-w-sm mx-4">
+    <div class="relative overflow-hidden panel rounded-2xl p-8 text-center">
+      <div class="scan-line"></div>
+      <div class="w-14 h-14 rounded-full spinner-ring mx-auto mb-6"></div>
+      <p class="font-display text-lg mb-1">Generating contribution report</p>
+      <p id="loadingStatus" class="eyebrow">Reading commit history…</p>
+      <div class="mt-6 h-1 rounded-full bg-[var(--line)] overflow-hidden">
+        <div id="loadingBar" class="h-full bg-[var(--teal)] rounded-full" style="width:0%; transition: width .4s ease;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+<nav id="navbar" class="fixed top-0 inset-x-0 z-50">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="#hero" class="flex items-center gap-2.5">
+      <span class="relative flex items-center justify-center w-9 h-9 rounded-lg" style="background: var(--teal-dim);">
+        <svg class="w-3.5 h-3.5 text-[var(--teal)] shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M6 8.5V15.5"/><path d="M8.5 6H14A4 4 0 0 1 18 10V15.5"/></svg>
+      </span>
+      <span class="font-display font-semibold text-lg tracking-tight">WorkLens</span>
+    </a>
+
+    <div class="hidden md:flex items-center gap-8 text-sm">
+      <a href="#about" class="nav-link">Features</a>
+      <a href="#audit" class="nav-link">Analyze Project</a>
+      <a href="#dashboard" class="nav-link">Reports</a>
+      <a href="#recommendations" class="nav-link">Insights</a>
+      <a href="#footer-links" class="nav-link">Documentation</a>
+    </div>
+
+    <a href="#audit" class="btn-primary hidden sm:inline-flex items-center gap-2 text-sm px-4 py-2 rounded-lg">
+      <svg class="w-3 h-3 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4L19 12L6 20V4Z" stroke-linejoin="round"/></svg> Analyze Project
+    </a>
+
+    <button id="menuBtn" class="md:hidden text-[var(--text)] text-xl" aria-label="Toggle menu">
+      <svg class="w-4 h-4 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6H21"/><path d="M3 12H21"/><path d="M3 18H21"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="md:hidden hidden panel-2 border-t divider px-6 py-4 flex flex-col gap-4 text-sm">
+    <a href="#about" class="nav-link">Features</a>
+    <a href="#audit" class="nav-link">Analyze Project</a>
+    <a href="#dashboard" class="nav-link">Reports</a>
+    <a href="#recommendations" class="nav-link">Insights</a>
+    <a href="#footer-links" class="nav-link">Documentation</a>
+  </div>
+</nav>
+
+<!-- =========================================================
+     HERO — signature element: a live contribution-report preview
+     (team rows with animated bars + activity heatmap), styled as
+     an actual product screenshot rather than decorative artwork.
+========================================================= -->
+<section id="hero" class="relative z-10 pt-32 pb-20 px-6 overflow-hidden">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+
+    <div class="reveal">
+      <div class="eyebrow mb-5 flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-[var(--teal)] pulse-dot"></span>
+        ANALYSIS ENGINE · V2.3
+      </div>
+      <h1 class="font-display text-5xl sm:text-6xl leading-[1.05] font-semibold tracking-tight mb-6">
+        Know who<br/>
+        <span class="text-[var(--teal)]">really built</span><br/>
+        the project.
+      </h1>
+      <p class="text-[var(--muted)] text-lg max-w-md mb-9 leading-relaxed">
+        WorkLens turns GitHub commits, docs, tasks, and collaboration
+        activity into a clear, explainable contribution report — so
+        group grades reflect the actual work.
+      </p>
+
+      <div class="flex flex-wrap gap-4 mb-12">
+        <a href="#audit" class="btn-primary px-6 py-3.5 rounded-lg inline-flex items-center gap-2">
+          Analyze Project <svg class="w-3 h-3 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12H20"/><path d="M14 6L20 12L14 18"/></svg>
+        </a>
+        <a href="#dashboard" class="btn-ghost px-6 py-3.5 rounded-lg inline-flex items-center gap-2">
+          <svg class="w-3 h-3 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3V21H21"/><path d="M6 16L11 10L15 13L21 6"/></svg> See sample report
+        </a>
+      </div>
+
+      <div class="flex items-center gap-8 font-mono text-xs text-[var(--muted)]">
+        <div><span class="text-[var(--text)] text-base">5</span> signal types</div>
+        <div class="w-px h-8 divider border-l"></div>
+        <div><span class="text-[var(--text)] text-base">&lt;60s</span> per report</div>
+        <div class="w-px h-8 divider border-l"></div>
+        <div><span class="text-[var(--text)] text-base">100%</span> explainable</div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE VISUAL: contribution report preview -->
+    <div class="reveal relative flex flex-col items-center justify-center">
+      <div class="panel rounded-2xl w-full max-w-md relative overflow-hidden">
+
+        <!-- editor-style window bar -->
+        <div class="flex items-center gap-2 px-5 py-3.5 border-b divider">
+          <span class="winbar-dot" style="background:#F0576B"></span>
+          <span class="winbar-dot" style="background:#F5A524"></span>
+          <span class="winbar-dot" style="background:#2DD4BF"></span>
+          <span class="font-mono text-xs text-[var(--muted)] ml-2">contribution_report.md</span>
+        </div>
+
+        <div class="p-6">
+          <div class="flex items-center justify-between mb-5">
+            <span class="eyebrow">Capstone Team Project</span>
+            <span id="heroBadge" class="badge badge-warn"><span class="badge-dot"></span>1 flagged</span>
+          </div>
+
+          <!-- team member contribution rows -->
+          <div id="heroTeamRows" class="space-y-4 mb-6">
+            <!-- rows injected/animated via JS -->
+          </div>
+
+          <!-- activity heatmap -->
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-[0.65rem] uppercase tracking-wider text-[var(--muted)] font-mono">Team activity — last 4 weeks</span>
+            </div>
+            <div id="heroHeatmap" class="grid grid-cols-[repeat(14,minmax(0,1fr))] gap-1"></div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================================
+     ABOUT / FEATURES
+========================================================= -->
+<section id="about" class="relative z-10 py-20 px-6 border-t divider">
+  <div class="max-w-7xl mx-auto">
+    <div class="grid lg:grid-cols-3 gap-12 mb-14">
+      <div class="reveal">
+        <span class="eyebrow">About WorkLens</span>
+        <h2 class="font-display text-3xl sm:text-4xl font-semibold mt-3 leading-tight">
+          Group grades reward<br/>the loudest voice.<br/>
+          <span class="text-[var(--teal)]">WorkLens rewards<br/>the real work.</span>
+        </h2>
+      </div>
+      <p class="reveal lg:col-span-2 text-[var(--muted)] text-lg leading-relaxed self-center">
+        WorkLens analyzes activity across GitHub, shared docs, task
+        boards, and meeting logs, then converts it into a transparent,
+        per-member contribution report. Built for instructors, teaching
+        assistants, and student teams who need evidence, not guesswork,
+        when it's time to grade group work.
+      </p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="reveal metric-card rounded-xl p-6">
+        <svg class="w-5 h-5 text-[var(--teal)] mb-4 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M6 8.5V15.5"/><path d="M8.5 6H14A4 4 0 0 1 18 10V15.5"/></svg>
+        <h3 class="font-display font-semibold mb-2">Any project source</h3>
+        <p class="text-sm text-[var(--muted)] leading-relaxed">GitHub, Google Docs, and task boards connect directly — no manual activity logging.</p>
+      </div>
+      <div class="reveal metric-card rounded-xl p-6">
+        <svg class="w-5 h-5 text-[var(--teal)] mb-4 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3L21 8L12 13L3 8L12 3Z" stroke-linejoin="round"/><path d="M3 13L12 18L21 13"/><path d="M3 17.5L12 22.5L21 17.5"/></svg>
+        <h3 class="font-display font-semibold mb-2">5 contribution signals</h3>
+        <p class="text-sm text-[var(--muted)] leading-relaxed">Commits, doc edits, task completions, reviews, and meeting participation, weighted together.</p>
+      </div>
+      <div class="reveal metric-card rounded-xl p-6">
+        <svg class="w-5 h-5 text-[var(--teal)] mb-4 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V11"/><path d="M11 20V4"/><path d="M18 20V14"/><path d="M2 20H22"/></svg>
+        <h3 class="font-display font-semibold mb-2">Visual breakdowns</h3>
+        <p class="text-sm text-[var(--muted)] leading-relaxed">Member-by-member charts make uneven effort visible at a glance.</p>
+      </div>
+      <div class="reveal metric-card rounded-xl p-6">
+        <svg class="w-5 h-5 text-[var(--teal)] mb-4 shrink-0 inline-block align-[-0.15em]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18H15"/><path d="M10 21.5H14"/><path d="M12 2.5A6.5 6.5 0 0 0 8.2 14.1C9 14.8 9.5 15.6 9.5 16.5V17H14.5V16.5C14.5 15.6 15 14.8 15.8 14.1A6.5 6.5 0 0 0 12 2.5Z"/></svg>
+        <h3 class="font-display font-semibold mb-2">Explainable reports</h3>
+        <p class="text-sm text-[var(--muted)] leading-relaxed">Every score comes with plain-language evidence behind it — nothing is a black box.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+          
+         
+>>>>>>> 8df99ea6daf1da8ca4d664d71e211b32fafdc422
 <!-- =========================================================
      REPORTS (results dashboard)
 ========================================================= -->

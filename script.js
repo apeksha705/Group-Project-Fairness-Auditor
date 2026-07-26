@@ -357,7 +357,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     const projects = await getProjects();
 
     if (projects.length > 0) {
+        const project = projects[0];
+
         document.getElementById("lastRun").textContent =
-            `Showing live project · ${projects[0].name}`;
+            `Showing live project · ${project.name}`;
+
+        document.getElementById("projectName").textContent =
+            project.name || "N/A";
+
+        document.getElementById("projectSubject").textContent =
+            project.subject || "N/A";
+
+        document.getElementById("projectProfessor").textContent =
+            project.professor || "N/A";
+
+        document.getElementById("projectDeadline").textContent =
+            project.deadline || "N/A";
     }
 });
